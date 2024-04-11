@@ -1,13 +1,56 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
+{% block title %}Just Work It{% endblock %}
 {% block page %}Flask MVC App{% endblock %}
-
+{%block head%}
 {{ super() }}
+{%endblock%}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+ <nav class="nav-extended purple" style="margin-bottom:10px">
+ <div class="nav-wrapper">
+
+ <ul id="nav-mobile" class="right hide-on-med-and-down">
+ <img src="just work it graphic.png>
+ <a href="#" style="font-size=1.5em" class="brand-logo left">Welcome,{{user.username}} </a>
+ <h1>Just Work It</h1>
+ <li><a href="/logout">Logout</a></li>
+ </ul>
+</div>
+</nav>
+ <div class="row" style="margin: 0; padding:0; margin-top:-10px">
+      <div class="col s12 m9 l8">
+          <div class="container" Name="form-container">
+              <form name="create-routine" action="/createroutine" method="post">
+                  <div class="input-field">
+                    <input name="username" type="text" placeholder="routine name">
+                  </div>
+                  <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
+              </form>
+          </div>
+          <div class="row" name="workouts-container">
+           <h1>Workouts</h1>
+           {%for workout  in workouts%}
+              <div class=card-content>
+                  <h2 class="center-align">{{workout.name}}</h2>
+                  <h3>{{workout.bodypart}}</h3>
+                  <h3>{{workout.equipment}}</h3>
+                  <p>{{workout.description}}</p>
+              </div>
+              <div class="card-action">
+              </div>
+              {%endfor%}
+            </div>
+      </div>
+      <div class="col s12 m3 l4">
+        <h1>My Routines:<h1>
+            {%for routine  in routines%}
+            <div class="container>
+                <h1>{{routine.name}}</h1>
+                <a href=/viewroutine/{{routine.id}}
+             </div>
+            {%endfor%}
+      </div>
+    </div>
+</div>
+
 {% endblock %}
