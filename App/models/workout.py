@@ -13,8 +13,7 @@ class Workout(db.Model):
   
     
   
-  def __init__(self, id, name, bodypart, equipment, target, secondaryMuscles, instructions, gifurl):
-        self.id = id
+  def __init__(self, name, bodypart, equipment, target, secondaryMuscles, instructions, gifurl):
         self.name = name
         self.bodypart = bodypart
         self.equipment = equipment
