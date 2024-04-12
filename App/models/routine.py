@@ -12,7 +12,6 @@ class Routine(db.Model):
         self.user_id = user_id
         self.workout = workout
 
-  
 
     def to_dict(self):
         return {

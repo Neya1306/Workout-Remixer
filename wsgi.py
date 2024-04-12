@@ -1,6 +1,8 @@
 import click, pytest, sys
 from flask import Flask
 from flask.cli import with_appcontext, AppGroup
+import csv
+from App.models.workout import Workout
 
 from App.database import db, get_migrate
 from App.main import create_app
@@ -17,6 +19,21 @@ def initialize():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
+
+    with open('exercises.csv', newline='') as csvfile:
+      reader = csv.DictReader(csvfile)
+      for row in reader:
+          workout = Workout(name=row['name'],
+                            bodypart=row['bodypart'],
+                            equipment=row['equipment'],
+                            target=row['target'],
+                  secondaryMuscles=row['secondaryMuscles/0'],
+                            instructions = row['instructions'],
+                           gifurl = row['gifUrl'])
+          db.session.add(workout)
+      db.session.commit()
+
+    print('database initialized!')
     print('database intialized')
 
 '''
@@ -67,3 +84,7 @@ def user_tests_command(type):
     
 
 app.cli.add_command(test)
+
+
+
+
