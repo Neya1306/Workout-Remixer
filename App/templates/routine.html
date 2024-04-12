@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Just Work It{% endblock %}
+{% block page %}Flask MVC App{% endblock %}
+{%block head%}
+{{ super() }}
+{%endblock%}
+
+ <nav class="nav-extended purple" style="margin-bottom:10px">
+ <div class="nav-wrapper">
+
+ <ul id="nav-mobile" class="right hide-on-med-and-down">
+ <img src="just work it graphic.png>
+ <a href="#" style="font-size=1.5em" class="brand-logo left">Welcome,{{user.username}} </a>
+ <h1>Just Work It</h1>
+ <li><a href="/logout">Logout</a></li>
+ </ul>
+</div>
+</nav>
+ <div class="row" name="workouts-container">
+           <h1>Workouts</h1>
+           {%for workout  in workouts%}
+              <div class=card-content>
+                  <h2 class="center-align">{{workout.name}}</h2>
+                  <h3>{{workout.bodypart}}</h3>
+                  <h3>{{workout.equipment}}</h3>
+                  <p>{{workout.description}}</p>
+              </div>
+              <div class="card-action">
+              </div>
+              {%endfor%}
+            </div>
