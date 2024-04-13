@@ -45,9 +45,9 @@ def add_workout_to_routine(routine_id, workout_id):
         return routine
     return None
 
-def remove_exercise_from_routine(routine_id, exercise_id):
+def remove_exercise_from_routine(routine_id, workout_id):
     routine = get_routine(routine_id)
-    exercise = Workout.query.get(exercise_id)
+    exercise = Workout.query.get(workout_id)
     if routine and exercise:
         routine.remove_exercise(exercise)
         return routine

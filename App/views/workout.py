@@ -9,5 +9,5 @@ workout_views = Blueprint('workout_views', __name__, template_folder='../templat
 
 @workout_views.route('/workouts', methods=['GET'])
 def get_workouts_page():
-  workouts = Workout.query.all()
+  workouts = get_all_workouts
   return render_template('workouts.html', workouts=workouts)  
