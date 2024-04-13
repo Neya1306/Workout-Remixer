@@ -15,6 +15,7 @@ from App.controllers import (
 
 from App.views import views
 
+
 def add_views(app):
     for view in views:
         app.register_blueprint(view)
@@ -38,3 +39,4 @@ def create_app(overrides={}):
     app.app_context().push()
     return app
 
+  

@@ -24,17 +24,18 @@ def initialize():
       reader = csv.DictReader(csvfile)
       for row in reader:
           workout = Workout(name=row['name'],
-                            bodypart=row['bodypart'],
+                            bodypart=row['bodyPart'],
                             equipment=row['equipment'],
                             target=row['target'],
                   secondaryMuscles=row['secondaryMuscles/0'],
-                            instructions = row['instructions'],
+                            instructions = row['instructions/0'],
                            gifurl = row['gifUrl'])
           db.session.add(workout)
       db.session.commit()
 
     print('database initialized!')
-    print('database intialized')
+   
+  
 
 '''
 User Commands
