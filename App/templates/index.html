@@ -1,56 +1,85 @@
 {% extends "layout.html" %}
 {% block title %}Just Work It{% endblock %}
 {% block page %}Flask MVC App{% endblock %}
-{%block head%}
+{% block head %}
 {{ super() }}
-{%endblock%}
-
-{% block content %}
- <nav class="nav-extended purple" style="margin-bottom:10px">
- <div class="nav-wrapper">
-
- <ul id="nav-mobile" class="right hide-on-med-and-down">
- <img src="just work it graphic.png>
- <a href="#" style="font-size=1.5em" class="brand-logo left">Welcome,{{current_user.username}} </a>
- <h1>Just Work It</h1>
- <li><a href="/logout">Logout</a></li>
- </ul>
-</div>
-</nav>
- <div class="row" style="margin: 0; padding:0; margin-top:-10px">
-      <div class="col s12 m9 l8">
-          <div class="container" Name="form-container">
-              <form name="create-routine" action="/createroutine" method="post">
-                  <div class="input-field">
-                    <input name="username" type="text" placeholder="routine name">
-                  </div>
-                  <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
-              </form>
-          </div>
-          <div class="row" name="workouts-container">
-           <h1>Workouts</h1>
-           {%for workout  in workouts%}
-              <div class=card-content>
-                  <h2 class="center-align">{{workout.name}}</h2>
-                  <h3>{{workout.bodypart}}</h3>
-                  <h3>{{workout.equipment}}</h3>
-                  <p>{{workout.description}}</p>
-              </div>
-              <div class="card-action">
-              </div>
-              {%endfor%}
-            </div>
-      </div>
-      <div class="col s12 m3 l4">
-        <h1>My Routines:<h1>
-            {%for routine  in routines%}
-            <div class="container>
-                <h1>{{routine.name}}</h1>
-                <a href=/viewroutine/{{routine.id}}
-             </div>
-            {%endfor%}
-      </div>
-    </div>
-</div>
-
 {% endblock %}
+
+<nav class="nav-extended purple" style="margin-bottom:10px">
+  <div class="nav-wrapper">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <img src="just work it graphic.png">
+      <a href="#" style="font-size=1.5em" class="brand-logo left">Welcome,{{current_user.username}} </a>
+
+      <h1>Just Work It</h1>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+{% block content %}
+<main class="row" style="margin-left: 0; margin-right: 0;">
+  <section class="col s12 m9" style="overflow-y: scroll; padding: 0;">
+    <h3>Workouts</h3>
+    <div class="row" style="width: 100%; background-color:gainsboro;">
+      {% for workout in workouts %}
+      <article class="col s12 m4">
+        <div class="card">
+          <div class="card-content" style="height:300px;">
+            <span class="card-title">workout: {{workout.name}}</span>
+            <p>Body part: {{workout.bodypart}} </p>
+            <p>Equipment: {{workout.equipment}}</p>
+            <br>
+            <p>Instructions: {{workout.instructions}}</p>
+          </div>
+          <div class="card-action">
+            <div class="card-action">
+               <p>select routine</p>
+              <select>
+                {% for routine in routines %}
+                <option value="{{routine.id}}">{{routine.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <a href="/addRoutine/{{workout.id}}" class="btn">Add To Routine</a>
+          </div>
+        </div>
+      </article>
+      {%endfor%}
+    </div>
+  </section>
+  <section class="col s12 m3" style="padding: 0;">
+    <h3>My Routines:</h3>
+    <div class="col s12 m9 l8">
+      <div class="container" Name="form-container">
+        <form name="create-routine" action="/createroutine" method="post">
+          <div class="input-field">
+            <input name="username" type="text" placeholder="routine name">
+          </div>
+          <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
+        </form>
+      </div>
+      <ul class="collection" style="overflow-y: scroll; height:70vh;">
+        {% for item in cart %}
+        {% if item.quantity > 0 %}
+        <li class="collection-item" style="height: 200px">
+          <p>Name: {{item.product.name}}</p>
+          <p>Price: {{item.product.price}}</p>
+          <form class="col" method="POST" action="updateQuantity/{{item.id}}">
+            <div class="input-field inline">
+              <input type="number" name="quantity" value="{{item.quantity}}">
+              <label for="quantity">Quantity</label>
+            </div>
+            <input type="submit" class="btn" value="Update">
+          </form>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+<script>
+  M.AutoInit();
+</script>
