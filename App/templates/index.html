@@ -31,17 +31,20 @@
             <br>
             <p>Instructions: {{workout.instructions}}</p>
           </div>
-          <div class="card-action">
-            <div class="card-action">
-               <p>select routine</p>
-              <select>
-                {% for routine in routines %}
-                <option value="{{routine.id}}">{{routine.name}}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <a href="/addRoutine/{{workout.id}}" class="btn">Add To Routine</a>
-          </div>
+          <form action="/addRoutine" method="POST">
+              <div class="card-action">
+                  <div class="card-action">
+                      <p>select routine</p>
+                      <select name="routine_id">
+                          {% for routine in routines %}
+                          <option value="{{routine.id}}">{{routine.name}}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                  <input type="hidden" name="workout_id" value="{{ workout.id }}">
+                  <button type="submit" class="btn">Add To Routine</button>
+              </div>
+          </form>
         </div>
       </article>
       {%endfor%}
@@ -50,27 +53,42 @@
   <section class="col s12 m3" style="padding: 0;">
     <h3>My Routines:</h3>
     <div class="col s12 m9 l8">
-      <div class="container" Name="form-container">
-        <form name="create-routine" action="/createroutine" method="POST">
-          <div class="input-field">
-            <input name="name" type="text" placeholder="routine name">
-          </div>
-          <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
-        </form>
+      <div class="container" name="form-container">
+          <form name="createroutine" action="/createroutine" method="POST">
+              <div class="input-field">
+                  <input name="name" type="text" placeholder="routine name">
+              </div>
+              <div class="input-field">
+                  <select name="workout_id">
+                      {% for workout in workouts %}
+                      <option value="{{ workout.workout_id }}">{{ workout.name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label>Select Workout</label>
+              </div>
+              <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
+          </form>
       </div>
-      <ul class="collection" style="overflow-y: scroll; height:70vh;">
-        {% for routine in routines %}
-        <li class="collection-item">
-          <div class="row">
-            <div class="col s12 m9">
-              <p>{{routine.name}}</p>
-            </div>
-            <div class="col s12 m3">
-              <a href="/routines/{{routine.id}}" class="btn">View</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
+      <ul class="collection" style="overflow-y: scroll; height: 70vh;">
+          {% for routine in routines %}
+          <li class="collection-item">
+              <div class="row">
+                  <div class="col s12">
+                      <p>{{ routine.name }}</p>
+                      
+                      <ul>
+                          {% for workout in routine.workouts %}
+                          <li>{{ workout.name }}</li>
+                          {% endfor %}
+
+                      </ul>
+                  </div>
+                  <div class="col s12 m3">
+                      <a href="/routines/{{ routine.id }}" class="btn">View</a>
+                  </div>
+              </div>
+          </li>
+          {% endfor %}
       </ul>
     </div>
     

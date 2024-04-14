@@ -20,7 +20,7 @@ def initialize():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    create_routine('Default Routine')
+    create_routine('Default Routine', 1)
 
     with open('exercises.csv', newline='') as csvfile:
       reader = csv.DictReader(csvfile)

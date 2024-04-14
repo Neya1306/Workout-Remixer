@@ -2,11 +2,12 @@ from App.models.routine import Routine
 from App.models.workout import Workout
 from App.database import db
 
-def create_routine(name):
-    new_routine = Routine(name=name)
-    db.session.add(new_routine)
-    db.session.commit()
-    return new_routine
+def create_routine(name, workout_id):
+  
+  new_routine = Routine(name=name, workout_id=workout_id)
+  db.session.add(new_routine)
+  db.session.commit()
+  return new_routine
 
 def get_routine(id):
     return Routine.query.get(id)
@@ -36,16 +37,17 @@ def delete_routine(id):
     return None
 
 def add_workout_to_routine(routine_id, workout_id):
-    routine = get_routine(routine_id)
-    workout = Workout.query.get(workout_id)
-    if routine and workout:
-        routine.add_exercise(workout)
-        return routine
-    return None
+  routine = get_routine(routine_id)
+  workout = Workout.query.get(workout_id)
+  if routine and workout:
+      routine.add_workout(workout)
+      db.session.commit()  
+      return routine
+  return None
 
 def remove_workout_from_routine(routine_id, workout_id):
     routine = get_routine(routine_id)
-    exercise = Workout.query.get(workout_id)
+    workout = Workout.query.get(workout_id)
     if routine and workout:
         routine.remove_workout(workout)
         return routine
