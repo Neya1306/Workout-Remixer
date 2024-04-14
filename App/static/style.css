@@ -3,6 +3,7 @@ html {
   width: 100%;
   background-color: #900C3F
 }
+/* LOGIN AND SIGNUP CSS STARTS HERE */
 
 /* CSS for styling text fields */
 .creds-text-field {
@@ -44,6 +45,8 @@ creds-label {
   font-size: 14px; /* Adjust font size as needed */
   margin-top: 10px; /* Adjust margin as needed */
 }
+
+/* LOGIN AND SIGNUP CSS ENDS HERE */
 
 /* CSS for centering content */
 .center-content {
