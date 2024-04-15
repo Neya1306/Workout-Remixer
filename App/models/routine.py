@@ -8,12 +8,12 @@ class Routine(db.Model):
                                                              
   
 
-    def __init__(self, name,workout_id, ):
+    def __init__(self, name,workout_id):
         self.name = name
         self.workout_id = workout_id
     
 
-    def to_dict(self):
+    def get_json(self):
         return {
             "id": self.id,
             "name": self.name,
