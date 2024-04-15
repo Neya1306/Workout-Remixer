@@ -43,78 +43,53 @@
     </div>
   </section>
 
-  <section class="col s12 m3" style="padding: 0;">
-    <h3>My Routines:</h3>
-    <div class="col s12 m9 l8">
-      <div class="container" name="form-container">
-          <form name="createroutine" action="/createroutine" method="POST">
-              <div class="input-field">
-                  <input name="name" type="text" placeholder="routine name">
-              </div>
-              <div class="input-field">
-                  <select name="workout_id">
-                      {% for workout in workouts %}
-                      <option value="{{ workout.workout_id }}">{{ workout.name }}</option>
-                      {% endfor %}
-                  </select>
-                  <label>Select Workout</label>
-              </div>
-              <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
-          </form>
-      </div>
-      <ul class="collection" style="overflow-y: scroll; height: 70vh;">
-          {% for routine in routines %}
-          <li class="collection-item">
-              <div class="row">
-                  <div class="col s12">
-                      <p>{{ routine.name }}</p>
-                      
-                      <ul>
-                          {% for workout in routine.workouts %}
-                          <li>{{ workout.name }}</li>
+  <section class="col s12 m3" style="padding: 5px;"> 
+
+      <h3 style="text-align: center;">My Routines:</h3>
+      <div class="col s12 m9 l8" style="min-width: 100%;">
+          <div class="container" Name="form-container">
+              <form name="create-routine" action="/createroutine" method="POST">
+                  <div class="input-field">
+                      <input name="name" type="text" placeholder="Enter Routine Name">
+                  </div>
+                  <div class="input-field">
+                      <select name="workout_id">
+                          {% for workout in workouts %}
+                          <option value="{{ workout.id }}">{{ workout.name }}</option>
                           {% endfor %}
-
-                      </ul>
+                      </select>
+                      <label>Select Workout</label>
                   </div>
-                  <div class="col s12 m3">
-                      <a href="/routines/{{ routine.id }}" class="btn">View</a>
-                  </div>
-              </div>
-          </li>
-          {% endfor %}
-
-  <section class="col s12 m3" style="padding:5px;"> 
-    
-    <h3 style="text-align: center;">My Routines:</h3>
-    <div class="col s12 m9 l8" style="min-width:100%;">
-      <div class="container" Name="form-container">
-        <form name="create-routine" action="/createroutine" method="POST">
-          <div class="input-field">
-            <input name="name" type="text" placeholder="Enter Routine Name">
+                  <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
+              </form>
           </div>
-          <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
-        </form>
+          <ul class="collection" style="overflow-y: auto; height: 70vh;">
+              {% for routine in routines %}
+              <li class="collection-item">
+                  <div class="row">
+                      <div class="col s12 m9">
+                          <p>{{ routine.name }}</p>
+                          <div class="row">
+                              {% for workout in routine.workouts %}
+                              <div class="col s12" style="display: flex; align-items: center;">
+                                  <p style="margin-right: 10px;">{{ workout.name }}</p>
+                                  <button class="btn" onclick="removeWorkoutFromRoutine('{{ routine.id }}', '{{ workout.id }}')">X</button>
+                              </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                      <div class="col s12 m3" style="display: flex; justify-content: center; align-items: center;">
+                          <a href="/routines/{{ routine.id }}" class="btn">Delete Routine</a>
+                      </div>
+                  </div>
+              </li>
+              {% endfor %}
+          </ul>
       </div>
-      <ul class="collection" style="overflow-y:auto; height:70vh;">
-        {% for routine in routines %}
-        <li class="collection-item">
-          <div class="row">
-            <div class="col s12 m9">
-              <p>{{routine.name}}</p>
-            </div>
-            <div class="col s12 m3">
-              <a href="/routines/{{routine.id}}" class="btn">View</a>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
- main
-      </ul>
-    </div>
-    
-      
-        
+
   </section>
+
+
 </main>
 {% endblock %}
 
