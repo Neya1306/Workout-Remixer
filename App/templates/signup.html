@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Signup Page{% endblock %}
+{% block page %}Signup{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<div class="center-content">
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="Image Description" style="max-width: 20%; max-height: 20%; margin-bottom: 40px;">
+  <div style="text-align: center; font-size: 50px; font-weight: bold;">
+    New to the App?
+  </div>
+  <div style="font-size: 20px; margin-bottom: 40px;">
+    Sign Up Now!
+  </div>
+
+  <!-- Form for username and password -->
+  <form class="center-content">
+
+    <!-- Username field with creds-label -->
+    <creds-label for="username">Username</creds-label>
+    <input type="text" id="username" name="username" class="creds-text-field" placeholder="Enter your username">
+
+    <!-- Password field with creds-label -->
+    <creds-label for="password">Password</creds-label>
+    <input type="password" id="password" name="password" class="creds-text-field" placeholder="Enter your password">
+
+    <!-- Sign up button -->
+    <button type="submit" class="login-button">Sign Up</button>
+
+    <div class="sign-up-link">
+      Back to <a href="/">Login</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
