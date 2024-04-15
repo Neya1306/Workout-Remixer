@@ -7,19 +7,22 @@ class Workout(db.Model):
   equipment = db.Column(db.String(100), nullable=False)
   target = db.Column(db.String(100), nullable=False)
   secondaryMuscles = db.Column(db.String(100), nullable=False)
-  instructions = db.Column(db.String(100), nullable=False)
+  instruction0 = db.Column(db.String(100), nullable=False)
+  instruction1 = db.Column(db.String(100), nullable=False)
+  instruciton2 = db.Column(db.String(100))
   gifurl = db.Column(db.String(100), nullable=False)
   
   
     
   
-  def __init__(self, name, bodypart, equipment, target, secondaryMuscles, instructions, gifurl):
+  def __init__(self, name, bodypart, equipment, target, secondaryMuscles, instruction0,instruction1,instruction2, gifurl):
         self.name = name
         self.bodypart = bodypart
         self.equipment = equipment
         self.target = target
         self.secondaryMuscles = secondaryMuscles
-        self.instructions = instructions
+        self.instruction0 = instruction0
+        self.instruction1 = instruction1
         self.gifurl = gifurl
 
   def to_dict(self):
@@ -30,6 +33,10 @@ class Workout(db.Model):
             "equipment": self.equipment,
             "target": self.target,
             "secondaryMuscles": self.secondaryMuscles,
-            "instructions": self.instructions,
+            "instruction0": self.instruction0,
+            "instruction1": self.instruction1,
+            "instruction2": self.instruction2,
             "gifurl": self.gifurl
         }
+
+ 

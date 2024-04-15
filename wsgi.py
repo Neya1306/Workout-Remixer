@@ -20,22 +20,29 @@ def initialize():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    create_routine('Default Routine')
+    create_routine('Default Routine', 1)
 
     with open('exercises.csv', newline='') as csvfile:
-      reader = csv.DictReader(csvfile)
-      for row in reader:
-          workout = Workout(name=row['name'],
-                            bodypart=row['bodyPart'],
-                            equipment=row['equipment'],
-                            target=row['target'],
-                  secondaryMuscles=row['secondaryMuscles/0'],
-                            instructions = row['instructions/0'],
-                           gifurl = row['gifUrl'])
-          db.session.add(workout)
-      db.session.commit()
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            instruction2 = row['instructions/2']
+            if instruction2 == '':
+                instruction2 = None
+            workout = Workout(name=row['name'],
+                              bodypart=row['bodyPart'],
+                              equipment=row['equipment'],
+                              target=row['target'],
+                              secondaryMuscles=row['secondaryMuscles/0'],
+                              instruction0=row['instructions/0'],
+                              instruction1=row['instructions/1'],
+                              instruction2=instruction2,  # Set instruction2 to None if empty string
+                              gifurl=row['gifUrl'])
+            db.session.add(workout)
+        db.session.commit()
 
-    print('database initialized!')
+    print('Database initialized!')
+
+  
    
   
 
