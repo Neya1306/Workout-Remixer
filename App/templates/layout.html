@@ -16,6 +16,14 @@
   </head>
   
   <body>
+    <nav class="nav" style="background-color:#2B2C28"> 
+      <div  style="display: flex; justify-content: space-between;padding-left:10px;padding-right:10px;">
+        <p> Welcome, {{current_user.name}}</p>
+        <h4 style="margin: auto; padding-bottom:5%;"> Just Work It </h4>
+        <a style="float:right;" href="/logout">Logout</a>
+      </div>
+     </nav>
+     
     <!-- Removed navigation bar and "class = container" -->
     <div id="content" style="font-family: 'Bebas Neue', sans-serif;">{% block content %}{% endblock %}</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
