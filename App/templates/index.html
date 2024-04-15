@@ -5,22 +5,12 @@
 {{ super() }}
 {% endblock %}
 
-<nav class="nav-extended purple" style="margin-bottom:10px">
-  <div class="nav-wrapper">
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <img src="just work it graphic.png">
-      <a href="#" style="font-size=1.5em" class="brand-logo left">Welcome,{{current_user.username}} </a>
 
-      <h1>Just Work It</h1>
-      <li><a href="/logout">Logout</a></li>
-    </ul>
-  </div>
-</nav>
 {% block content %}
-<main class="row" style="margin-left: 0; margin-right: 0;">
-  <section class="col s12 m9" style="overflow-y: scroll; padding: 0;">
-    <h3>Workouts</h3>
-    <div class="row" style="width: 100%; background-color:gainsboro;">
+<main class="row" style="margin-left:5px; margin-right: 0;">
+  <section class="col s12 m9" style="overflow-y:auto; padding: 10px;">
+    <h3>Browse Workouts:</h3>
+    <div class="row" style="width: 100%; background-color:gainsboro;padding: 5px;">
       {% for workout in workouts %}
       <article class="col s12 m4">
         <div class="card">
@@ -47,18 +37,18 @@
       {%endfor%}
     </div>
   </section>
-  <section class="col s12 m3" style="padding: 0;">
-    <h3>My Routines:</h3>
-    <div class="col s12 m9 l8">
+  <section class="col s12 m3" style="padding:5px;">
+    <h3 style="text-align: center;">My Routines:</h3>
+    <div class="col s12 m9 l8" style="min-width:100%;">
       <div class="container" Name="form-container">
         <form name="create-routine" action="/createroutine" method="POST">
           <div class="input-field">
-            <input name="name" type="text" placeholder="routine name">
+            <input name="name" type="text" placeholder="Enter Routine Name">
           </div>
           <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
         </form>
       </div>
-      <ul class="collection" style="overflow-y: scroll; height:70vh;">
+      <ul class="collection" style="overflow-y:auto; height:70vh;">
         {% for routine in routines %}
         <li class="collection-item">
           <div class="row">
