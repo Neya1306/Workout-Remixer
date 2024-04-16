@@ -40,6 +40,7 @@
   </div>
   
     <div class="row" style="width: 100%; background-color: gainsboro; padding: 5px;">
+      {% if workouts %}
       {% for workout in workouts %}
       <article class="col s12 m4">
         <div class="card">
@@ -66,6 +67,9 @@
         </div>
       </article>
       {% endfor %}
+      {%else%}
+      <p style="text-align: center;">No Workouts found!</p>
+      {%endif%}
     </div>
   </section>
 
