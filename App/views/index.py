@@ -8,7 +8,7 @@ from App.controllers import create_user
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
-@index_views.route('/', methods=['GET'])
+@index_views.route('/home', methods=['GET'])
 def index_page():
     workouts = get_all_workouts()
     routines = Routine.query.all()

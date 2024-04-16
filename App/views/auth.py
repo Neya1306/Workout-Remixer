@@ -22,23 +22,35 @@ def get_user_page():
 @jwt_required()
 def identify_page():
     return render_template('message.html', title="Identify", message=f"You are logged in as {current_user.id} - {current_user.username}")
+
+@auth_views.route('/', methods=['GET'])
+def login_page():
+    return render_template('login.html')
     
+@auth_views.route('/signup', methods=['GET'])
+def signup_page():
+    return render_template('signup.html')
 
 @auth_views.route('/login', methods=['POST'])
 def login_action():
+  
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+
     if not token:
-        flash('Bad username or password given'), 401
-    else:
-        flash('Login Successful')
-        set_access_cookies(response, token) 
+        flash('Bad username or password given')
+        return redirect(url_for('auth_views.login_page'))
+    
+    flash('Login Successful')
+    response = redirect(url_for('index_views.index_page'))
+    set_access_cookies(response, token) 
+    
     return response
+
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
-    response = redirect(request.referrer) 
+    response = redirect(url_for('auth_views.login_page')) 
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response
