@@ -10,16 +10,16 @@
 <main class="row" style="margin-left: 5px; margin-right: 0;">
   <section class="col s12 m9" style="overflow-y: auto; padding: 10px;">
     <h3>Browse Workouts:</h3>
-    <div class="Search bar" style="padding:5px; margin:1%;">
+   <div class="filterandsearch" style="display:flex; flex-direction: row;justify-content: space-around; padding:5px; margin:1%; background-color:gainsboro;border-radius:10px;">
+    <div class="Search bar" style="padding:5px; margin:1%;width:50%;">
+      Search:
       <form action="search" method="GET">
         <label>Search Workouts</label>
-        <span>
-        <input name="key" style="padding:5px; margin:1%; background-color:#FFFF; border-radius:15px;height:10px; width:300px;">
-        <input class="btn" style="border-radius:10px"type="submit" value="Search">
-      </span>
+        <input name="key" style="padding:5px; margin:1%; background-color:#FFFF;height:10px; width:300px;">
+        <input class="btn" style="border-radius:10px" type="submit" value="Search">
       </form>
     </div>
-   <div class="filter" style="padding:5px; margin:1%; background-color:#FFFF;">
+    <div class="filter" style="padding:5px; margin:1%;width:50%;">
       Filter By Target:
       <form action="/filter" method="GET">
         <label for="bodypart"> Select Body Part</label>
@@ -34,8 +34,9 @@
               <option value="upper arms">Upper Arms</option>
               <option value="lower arms">Lower Arms</option>
           </select>
-          <input class="btn" type="submit" value="Apply">
+          <input class="btn"  style="border-radius:10px" type="submit" value="Apply">
       </form>
+    </div>
   </div>
   
     <div class="row" style="width: 100%; background-color: gainsboro; padding: 5px;">
