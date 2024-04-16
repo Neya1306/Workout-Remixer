@@ -13,6 +13,13 @@ def index_page():
     workouts = get_all_workouts()
     routines = Routine.query.all()
     return render_template('index.html', workouts=workouts, routines = routines)
+
+@index_views.route('/filter', methods=['GET'])
+def get_target_workout():
+    bodypart = request.args.get('bodypart')
+    workouts = Workout.query.filter_by(bodypart=bodypart).all()
+    routines = Routine.query.all()
+    return render_template('index.html', workouts=workouts, routines=routines)
   
 
 @index_views.route('/init', methods=['GET'])

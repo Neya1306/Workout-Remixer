@@ -10,6 +10,25 @@
 <main class="row" style="margin-left: 5px; margin-right: 0;">
   <section class="col s12 m9" style="overflow-y: auto; padding: 10px;">
     <h3>Browse Workouts:</h3>
+   <div class="filter" style="padding:5px; margin:1%; background-color:#FFFF;">
+      Filter By Target:
+      <form action="/filter" method="GET">
+        <label for="bodypart"> Select Body Part</label>
+          <select name="bodypart" style="overflow-y: auto;">
+              <option value="waist">Waist</option>
+              <option value="upper legs">Upper Legs</option>
+              <option value="back">Back</option>
+              <option value="lower legs">Lower Legs</option>
+              <option value="chest">Chest</option>
+              <option value="cardio">Cardio</option>
+              <option value="shoulders">Shoulders</option>
+              <option value="upper arms">Upper Arms</option>
+              <option value="lower arms">Lower Arms</option>
+          </select>
+          <input class="btn" type="submit" value="Apply">
+      </form>
+  </div>
+  
     <div class="row" style="width: 100%; background-color: gainsboro; padding: 5px;">
       {% for workout in workouts %}
       <article class="col s12 m4">
