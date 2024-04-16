@@ -7,7 +7,7 @@ from App.models.workout import Workout
 from App.database import db, get_migrate
 from App.main import create_app
 from App.controllers import ( create_user, get_all_users_json, get_all_users)
-from App.controllers.routine import create_routine, get_routine, get_all_routines, get_user_routines
+from App.controllers.routine import create_routine, get_routine, get_all_routines, get_user_routines, add_workout_to_routine
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -21,13 +21,15 @@ def initialize():
     db.create_all()
     create_user('bob', 'bobpass')
     create_routine('Default Routine', 1)
+    add_workout_to_routine(1, 2)
+    add_workout_to_routine(1, 3)
+    add_workout_to_routine(1, 4)
 
     with open('exercises.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            instruction2 = row['instructions/2']
-            if instruction2 == '':
-                instruction2 = None
+      
+                
             workout = Workout(name=row['name'],
                               bodypart=row['bodyPart'],
                               equipment=row['equipment'],
@@ -35,7 +37,6 @@ def initialize():
                               secondaryMuscles=row['secondaryMuscles/0'],
                               instruction0=row['instructions/0'],
                               instruction1=row['instructions/1'],
-                              instruction2=instruction2,  # Set instruction2 to None if empty string
                               gifurl=row['gifUrl'])
             db.session.add(workout)
         db.session.commit()

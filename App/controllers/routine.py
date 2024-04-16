@@ -1,6 +1,7 @@
 from App.models.routine import Routine
 from App.models.workout import Workout
 from App.database import db
+from flask import  jsonify
 
 def create_routine(name, workout_id):
   
@@ -13,7 +14,9 @@ def get_routine(id):
     return Routine.query.get(id)
 
 def get_all_routines():
-    return Routine.query.all()
+    routines = Routine.query.all()
+    routines_json = [routine.get_json() for routine in routines]
+    return jsonify(routines_json)
 
 def get_user_routines(user_id):
     return Routine.query.filter_by(user_id=user_id).all()
@@ -36,14 +39,17 @@ def delete_routine(id):
         return routine
     return None
 
+
 def add_workout_to_routine(routine_id, workout_id):
   routine = get_routine(routine_id)
   workout = Workout.query.get(workout_id)
   if routine and workout:
-      routine.add_workout(workout)
-      db.session.commit()  
+      if workout not in routine.workouts:
+          routine.workouts.append(workout)
+          db.session.commit()
       return routine
   return None
+
 
 def remove_workout_from_routine(routine_id, workout_id):
     routine = get_routine(routine_id)

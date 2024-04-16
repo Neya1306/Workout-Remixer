@@ -9,13 +9,12 @@ class Workout(db.Model):
   secondaryMuscles = db.Column(db.String(100), nullable=False)
   instruction0 = db.Column(db.String(100), nullable=False)
   instruction1 = db.Column(db.String(100), nullable=False)
-  instruciton2 = db.Column(db.String(100))
   gifurl = db.Column(db.String(100), nullable=False)
   
   
     
   
-  def __init__(self, name, bodypart, equipment, target, secondaryMuscles, instruction0,instruction1,instruction2, gifurl):
+  def __init__(self, name, bodypart, equipment, target, secondaryMuscles, instruction0,instruction1, gifurl):
         self.name = name
         self.bodypart = bodypart
         self.equipment = equipment
@@ -35,7 +34,6 @@ class Workout(db.Model):
             "secondaryMuscles": self.secondaryMuscles,
             "instruction0": self.instruction0,
             "instruction1": self.instruction1,
-            "instruction2": self.instruction2,
             "gifurl": self.gifurl
         }
 
