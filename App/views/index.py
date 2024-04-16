@@ -21,6 +21,13 @@ def get_target_workout():
     routines = Routine.query.all()
     return render_template('index.html', workouts=workouts, routines=routines)
   
+@index_views.route('/search', methods=['GET'])
+def search_workouts():
+    routines = Routine.query.all()
+    key = request.args.get('key')
+    if key:
+        workouts= Workout.query.filter(Workout.name.ilike(f'%{key}%')).all()
+    return render_template('index.html', workouts=workouts, routines=routines)
 
 @index_views.route('/init', methods=['GET'])
 def init():

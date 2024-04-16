@@ -10,6 +10,15 @@
 <main class="row" style="margin-left: 5px; margin-right: 0;">
   <section class="col s12 m9" style="overflow-y: auto; padding: 10px;">
     <h3>Browse Workouts:</h3>
+    <div class="Search bar" style="padding:5px; margin:1%;">
+      <form action="search" method="GET">
+        <label>Search Workouts</label>
+        <span>
+        <input name="key" style="padding:5px; margin:1%; background-color:#FFFF; border-radius:15px;height:10px; width:300px;">
+        <input class="btn" style="border-radius:10px"type="submit" value="Search">
+      </span>
+      </form>
+    </div>
    <div class="filter" style="padding:5px; margin:1%; background-color:#FFFF;">
       Filter By Target:
       <form action="/filter" method="GET">
