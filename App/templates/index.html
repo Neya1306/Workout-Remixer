@@ -81,14 +81,6 @@
           <div class="input-field">
             <input name="name" type="text" placeholder="Enter Routine Name">
           </div>
-          <div class="input-field">
-            <select name="workout_id">
-              {% for workout in workouts %}
-              <option value="{{ workout.id }}">{{ workout.name }}</option>
-              {% endfor %}
-            </select>
-            <label>Select Workout</label>
-          </div>
           <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
         </form>
       </div>
@@ -98,31 +90,20 @@
           <div class="row">
             <div class="col s9"> <!-- Adjusted width to 9 columns -->
               <p style="display: inline;">{{ routine.name }}</p>
-              <i class="material-icons edit-icon" style="cursor: pointer; margin-left: 10px;" data-routine-id="{{ routine.id }}">edit</i> <!-- Edit icon -->
-              <ol> <!-- Ordered list of workouts -->
-                {% for workout in routine.workouts %}
-                <li>
-                  <div style="display: flex; align-items: center;">
-                    <p style="margin-right: 10px;">{{ workout.name }}</p>
-                    <form action="/remove_workout_from_routine/{{ routine.id }}/{{ workout.id }}" method="POST">
-                      <button type="submit" class="btn waves-effect waves-light" >Remove</button> <!-- Delete button -->
-                    </form>
-                  </div>
-                </li>
-                {% endfor %}
-              </ol>
             </div>
             <div class="col s3" style="display: flex; justify-content: center; align-items: center;"> <!-- Width set to 3 columns -->
+              <div style="display: flex;flex-direction: row;">
               <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-form-{{ routine.id }}').submit();">Delete Routine</a>
               <form id="delete-form-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token }}">
               </form>
+             <a href="/routine/{{routine.id}}"><button class="btn">View</button></a>
+            </div>
             </div>
           </div>
-        </li>
         {% endfor %}
-      </ul>
+        </ul>
     </div>
   </section>
 </main>

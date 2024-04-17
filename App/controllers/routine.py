@@ -1,5 +1,6 @@
 from App.models.routine import Routine
 from App.models.workout import Workout
+from App.models.workoutRoutine import WorkoutRoutine
 from App.database import db
 from flask import  jsonify
 
@@ -32,6 +33,7 @@ def update_routine(id, name=None):
 
 def delete_routine(id):
     routine = get_routine(id)
+    WorkoutRoutine.query.filter_by(routine_id=id).delete()
     if routine:
         db.session.delete(routine)
         db.session.commit()
@@ -52,8 +54,9 @@ def add_workout_to_routine(routine_id, workout_id):
 
 def remove_workout_from_routine(routine_id, workout_id):
     routine = get_routine(routine_id)
-    workout = Workout.query.get(workout_id)
+    workout = WorkoutRoutine.query.filter_by(workout_id=workout_id).first()
     if routine and workout:
-        routine.remove_workout(workout)
+        db.session.delete(workout)
+        db.session.commit()
         return routine
     return None
