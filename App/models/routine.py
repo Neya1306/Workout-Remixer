@@ -3,14 +3,13 @@ from App.database import db
 class Routine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'))
-    workouts = db.relationship('Workout', backref=db.backref('routine', lazy=True), uselist=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
                                                              
   
 
-    def __init__(self, name,workout_id):
+    def __init__(self, name,user_id):
         self.name = name
-        self.workout_id = workout_id
+        self.user_id = user_id
     
 
     def get_json(self):

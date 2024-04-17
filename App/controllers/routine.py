@@ -3,9 +3,8 @@ from App.models.workout import Workout
 from App.database import db
 from flask import  jsonify
 
-def create_routine(name, workout_id):
-  
-  new_routine = Routine(name=name, workout_id=workout_id)
+def create_routine(name,user_id):
+  new_routine = Routine(name=name,user_id=user_id)
   db.session.add(new_routine)
   db.session.commit()
   return new_routine
