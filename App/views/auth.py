@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, jsonify, request, flash, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
-
+from sqlalchemy.exc import IntegrityError
 from.index import index_views
-
+from App.models import User
 from App.controllers import (
-    login
+    login,create_user
 )
 
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
@@ -22,23 +22,50 @@ def get_user_page():
 @jwt_required()
 def identify_page():
     return render_template('message.html', title="Identify", message=f"You are logged in as {current_user.id} - {current_user.username}")
+
+@auth_views.route('/', methods=['GET'])
+def login_page():
+    return render_template('login.html')
+    
+@auth_views.route('/signup', methods=['GET'])
+def signup_page():
+    return render_template('signup.html')
+@auth_views.route('/newuser', methods=['POST'])
+def signup():
+    try:
+        data = request.form
+        create_user(data['username'], data['password'])
+        flash('User Created Successfully')
+        token =login(data['username'], data['password'])
+        response = redirect(url_for('index_views.index_page'))
+        set_access_cookies(response, token)
+    except IntegrityError:
+        flash('Username already exists')
+        response = redirect(url_for('auth_views.signup_page'))
+    return response
+   
     
 
 @auth_views.route('/login', methods=['POST'])
 def login_action():
+  
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+
     if not token:
-        flash('Bad username or password given'), 401
-    else:
-        flash('Login Successful')
-        set_access_cookies(response, token) 
+        flash('Bad username or password given')
+        return redirect(url_for('auth_views.login_page'))
+    
+    flash('Login Successful')
+    response = redirect(url_for('index_views.index_page'))
+    set_access_cookies(response, token) 
+    
     return response
+
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
-    response = redirect(request.referrer) 
+    response = redirect(url_for('auth_views.login_page')) 
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response

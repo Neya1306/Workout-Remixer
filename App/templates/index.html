@@ -10,7 +10,37 @@
 <main class="row" style="margin-left: 5px; margin-right: 0;">
   <section class="col s12 m9" style="overflow-y: auto; padding: 10px;">
     <h3>Browse Workouts:</h3>
+   <div class="filterandsearch" style="display:flex; flex-direction: row;justify-content: space-around; padding:5px; margin:1%; background-color:gainsboro;border-radius:10px;">
+    <div class="Search bar" style="padding:5px; margin:1%;width:50%;">
+      Search:
+      <form action="search" method="GET">
+        <label>Search Workouts</label>
+        <input name="key" style="padding:5px; margin:1%; background-color:#FFFF;height:10px; width:300px;">
+        <input class="btn" style="border-radius:10px" type="submit" value="Search">
+      </form>
+    </div>
+    <div class="filter" style="padding:5px; margin:1%;width:50%;">
+      Filter By Target:
+      <form action="/filter" method="GET">
+        <label for="bodypart"> Select Body Part</label>
+          <select name="bodypart" style="overflow-y: auto;">
+              <option value="waist">Waist</option>
+              <option value="upper legs">Upper Legs</option>
+              <option value="back">Back</option>
+              <option value="lower legs">Lower Legs</option>
+              <option value="chest">Chest</option>
+              <option value="cardio">Cardio</option>
+              <option value="shoulders">Shoulders</option>
+              <option value="upper arms">Upper Arms</option>
+              <option value="lower arms">Lower Arms</option>
+          </select>
+          <input class="btn"  style="border-radius:10px" type="submit" value="Apply">
+      </form>
+    </div>
+  </div>
+  
     <div class="row" style="width: 100%; background-color: gainsboro; padding: 5px;">
+      {% if workouts %}
       {% for workout in workouts %}
       <article class="col s12 m4">
         <div class="card">
@@ -37,6 +67,9 @@
         </div>
       </article>
       {% endfor %}
+      {%else%}
+      <p style="text-align: center;">No Workouts found!</p>
+      {%endif%}
     </div>
   </section>
 
@@ -48,14 +81,6 @@
           <div class="input-field">
             <input name="name" type="text" placeholder="Enter Routine Name">
           </div>
-          <div class="input-field">
-            <select name="workout_id">
-              {% for workout in workouts %}
-              <option value="{{ workout.id }}">{{ workout.name }}</option>
-              {% endfor %}
-            </select>
-            <label>Select Workout</label>
-          </div>
           <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
         </form>
       </div>
@@ -65,31 +90,20 @@
           <div class="row">
             <div class="col s9"> <!-- Adjusted width to 9 columns -->
               <p style="display: inline;">{{ routine.name }}</p>
-              <i class="material-icons edit-icon" style="cursor: pointer; margin-left: 10px;" data-routine-id="{{ routine.id }}">edit</i> <!-- Edit icon -->
-              <ol> <!-- Ordered list of workouts -->
-                {% for workout in routine.workouts %}
-                <li>
-                  <div style="display: flex; align-items: center;">
-                    <p style="margin-right: 10px;">{{ workout.name }}</p>
-                    <form action="/remove_workout_from_routine/{{ routine.id }}/{{ workout.id }}" method="POST">
-                      <button type="submit" class="btn waves-effect waves-light" >Remove</button> <!-- Delete button -->
-                    </form>
-                  </div>
-                </li>
-                {% endfor %}
-              </ol>
             </div>
             <div class="col s3" style="display: flex; justify-content: center; align-items: center;"> <!-- Width set to 3 columns -->
+              <div style="display: flex;flex-direction: row;">
               <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-form-{{ routine.id }}').submit();">Delete Routine</a>
               <form id="delete-form-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token }}">
               </form>
+             <a href="/routine/{{routine.id}}"><button class="btn">View</button></a>
+            </div>
             </div>
           </div>
-        </li>
         {% endfor %}
-      </ul>
+        </ul>
     </div>
   </section>
 </main>

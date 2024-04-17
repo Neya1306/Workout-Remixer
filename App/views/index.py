@@ -8,12 +8,26 @@ from App.controllers import create_user
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
-@index_views.route('/', methods=['GET'])
+@index_views.route('/home', methods=['GET'])
 def index_page():
     workouts = get_all_workouts()
     routines = Routine.query.all()
     return render_template('index.html', workouts=workouts, routines = routines)
+
+@index_views.route('/filter', methods=['GET'])
+def get_target_workout():
+    bodypart = request.args.get('bodypart')
+    workouts = Workout.query.filter_by(bodypart=bodypart).all()
+    routines = Routine.query.all()
+    return render_template('index.html', workouts=workouts, routines=routines)
   
+@index_views.route('/search', methods=['GET'])
+def search_workouts():
+    routines = Routine.query.all()
+    key = request.args.get('key')
+    if key:
+        workouts= Workout.query.filter(Workout.name.ilike(f'%{key}%')).all()
+    return render_template('index.html', workouts=workouts, routines=routines)
 
 @index_views.route('/init', methods=['GET'])
 def init():

@@ -20,11 +20,6 @@ def initialize():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    create_routine('Default Routine', 1)
-    add_workout_to_routine(1, 2)
-    add_workout_to_routine(1, 3)
-    add_workout_to_routine(1, 4)
-
     with open('exercises.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
