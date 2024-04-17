@@ -34,7 +34,7 @@ def signup_page():
 def signup():
     try:
         data = request.form
-        user = create_user(data['username'], data['password'])
+        create_user(data['username'], data['password'])
         flash('User Created Successfully')
         token =login(data['username'], data['password'])
         response = redirect(url_for('index_views.index_page'))
