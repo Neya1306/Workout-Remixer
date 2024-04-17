@@ -12,6 +12,7 @@ routine_views = Blueprint('routine_views', __name__, template_folder='../templat
 
 
 @routine_views.route('/addRoutine', methods=['POST'])
+@jwt_required()
 def add_routine_to_workout():
     workout_id = request.form['workout_id']
     routine_id = request.form['routine_id']
@@ -36,6 +37,7 @@ def create_routine_page():
     return redirect(url_for('index_views.index_page'))
 
 @routine_views.route('/routine/<int:routine_id>', methods=['GET'])
+@jwt_required()
 def view_routine_page(routine_id):
     workouts = WorkoutRoutine.query.filter_by(routine_id=routine_id).all()
     workout_data = []
@@ -46,17 +48,20 @@ def view_routine_page(routine_id):
 
 # Route to delete a routine
 @routine_views.route('/delete_routine/<int:routine_id>', methods=['POST'])
+@jwt_required()
 def delete_routine_page(routine_id):
     delete_routine(routine_id)
     return redirect(url_for('index_views.index_page'))
 
 # Route to remove workout from routine
 @routine_views.route('/deleteworkout/<int:routine_id>/<int:workout_id>', methods=['POST'])
+@jwt_required()
 def delete_workout(routine_id, workout_id):
     remove_workout_from_routine(routine_id, workout_id)
     return redirect(request.referrer)
 
 @routine_views.route('/routines', methods=['GET'])
+@jwt_required()
 def get_all_routines_page():
   routines = Routine.query.all()
   return render_template('routine.html', routines = routines)
