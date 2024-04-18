@@ -89,17 +89,21 @@
         <li class="collection-item">
           <div class="row">
             <div class="col s9"> <!-- Adjusted width to 9 columns -->
+              Routine:
               <p style="display: inline;">{{ routine.name }}</p>
             </div>
             <div class="col s3" style="display: flex; justify-content: center; align-items: center;"> <!-- Width set to 3 columns -->
-              <div style="display: flex;flex-direction: row;">
+              <div style="display: flex; flex-direction:column; justify-content:space-around;">
+              <div style="padding: 1px;" >
               <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-form-{{ routine.id }}').submit();">Delete Routine</a>
               <form id="delete-form-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token }}">
               </form>
-             <a href="/routine/{{routine.id}}"><button class="btn">View</button></a>
             </div>
+            <div style="padding:1px;" >
+              <a href="/routine/{{routine.id}}"><button class="btn">View</button></a>
+              </div>
             </div>
           </div>
         {% endfor %}
