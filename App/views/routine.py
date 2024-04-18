@@ -34,6 +34,7 @@ def add_routine_to_workout():
 def create_routine_page():
     name = request.form['name']
     create_routine(name,current_user.id )
+    flash('Routine Created')
     return redirect(url_for('index_views.index_page'))
 
 @routine_views.route('/routine/<int:routine_id>', methods=['GET'])
@@ -52,6 +53,7 @@ def view_routine_page(routine_id):
 def rename_routine(routine_id):
     name = request.form['name']
     update_routine(routine_id, name)
+    flash('Routine Renamed')
     return redirect(request.referrer)
 
 
@@ -60,6 +62,7 @@ def rename_routine(routine_id):
 @jwt_required()
 def delete_routine_page(routine_id):
     delete_routine(routine_id)
+    flash('Routine Deleted')
     return redirect(url_for('index_views.index_page'))
 
 # Route to remove workout from routine
@@ -67,6 +70,7 @@ def delete_routine_page(routine_id):
 @jwt_required()
 def delete_workout(routine_id, workout_id):
     remove_workout_from_routine(routine_id, workout_id)
+    flash('Workout Deleted')
     return redirect(request.referrer)
 
 @routine_views.route('/routines', methods=['GET'])
