@@ -1,116 +1,127 @@
 {% extends "layout.html" %}
-{% block title %}Just Work It{% endblock %}
+{% block title %}Flask MVC App{% endblock %}
 {% block page %}Flask MVC App{% endblock %}
-{% block head %}
-{{ super() }}
-{% endblock %}
 
+{{ super() }}
 
 {% block content %}
-<main class="row" style="margin-left: 5px; margin-right: 0;">
-  <section class="col s12 m9" style="overflow-y: auto; padding: 10px;">
-    <h3>Browse Workouts:</h3>
-   <div class="filterandsearch" style="display:flex; flex-direction: row;justify-content: space-around; padding:5px; margin:1%; background-color:gainsboro;border-radius:10px;">
-    <div class="Search bar" style="padding:5px; margin:1%;width:50%;">
-      Search:
-      <form action="search" method="GET">
-        <label>Search Workouts</label>
-        <input name="key" style="padding:5px; margin:1%; background-color:#FFFF;height:10px; width:300px;">
-        <input class="btn" style="border-radius:10px" type="submit" value="Search">
-      </form>
+  <!-- home page welcome message -->
+  <div style="font-size: 50px; margin-bottom: 15px; margin-top: 15px;">Welcome {{current_user.username}}!</div>
+
+  <div class="top-content">
+    
+    <div class="slideshow-container">
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_1.png') }}" alt="Slide 1">
+      </div>
+
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_2.png') }}" alt="Slide 2">
+      </div>
+
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_3.png') }}" alt="Slide 3">
+      </div>
+
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_4.png') }}" alt="Slide 4">
+      </div>
+
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_5.png') }}" alt="Slide 5">
+      </div>
+
+      <div class="slide fade">
+        <img src="{{ url_for('static', filename='slide_6.png') }}" alt="Slide 6">
+      </div>
     </div>
-    <div class="filter" style="padding:5px; margin:1%;width:50%;">
-      Filter By Target:
-      <form action="/filter" method="GET">
-        <label for="bodypart"> Select Body Part</label>
-          <select name="bodypart" style="overflow-y: auto;">
-              <option value="waist">Waist</option>
-              <option value="upper legs">Upper Legs</option>
-              <option value="back">Back</option>
-              <option value="lower legs">Lower Legs</option>
-              <option value="chest">Chest</option>
-              <option value="cardio">Cardio</option>
-              <option value="shoulders">Shoulders</option>
-              <option value="upper arms">Upper Arms</option>
-              <option value="lower arms">Lower Arms</option>
-          </select>
-          <input class="btn"  style="border-radius:10px" type="submit" value="Apply">
-      </form>
-    </div>
-  </div>
+
+    <div class="extra-column"><img src="{{ url_for('static', filename='flyer.png') }}" alt="Flyer"></div>
   
-    <div class="row" style="width: 100%; background-color: gainsboro; padding: 5px;">
-      {% if workouts %}
-      {% for workout in workouts %}
-      <article class="col s12 m4">
-        <div class="card">
-          <div class="card-content" style="height: 300px;">
-            <span class="card-title">Workout: {{ workout.name }}</span>
-            <p>Body part: {{ workout.bodypart }}</p>
-            <p>Equipment: {{ workout.equipment }}</p>
-            <br>
-            <p>Instruction1: {{ workout.instruction0 }}</p>
-            <p>Instruction2: {{ workout.instruction1 }}</p>
-          </div>
-          <div class="card-action">
-            <form action="/addRoutine" method="POST">
-              <p>Select routine</p>
-              <select name="routine_id">
-                {% for routine in routines %}
-                <option value="{{ routine.id }}">{{ routine.name }}</option>
-                {% endfor %}
-              </select>
-              <input type="hidden" name="workout_id" value="{{ workout.id }}">
-              <button type="submit" class="btn">Add To Routine</button>
-            </form>
+  </div>
+
+  <div class="content">
+    
+    <div class="workouts">
+      <p>Browse Workouts</p>
+      
+      <div class="search">
+        <div class="dropdown">
+          <div class="dropbtn">Filter by Body Part</div>
+          <div class="dropdown-content">
+            <ul>
+              <li><a href="/filter?bodypart=back">Back</a></li>
+              <li><a href="/filter?bodypart=cardio">Cardio</a></li>
+              <li><a href="/filter?bodypart=chest">Chest</a></li>
+              <li><a href="/filter?bodypart=lower arms">Lower Arms</a></li>
+              <li><a href="/filter?bodypart=lower legs">Lower Legs</a></li>
+              <li><a href="/filter?bodypart=shoulders">Shoulders</a></li>
+              <li><a href="/filter?bodypart=upper arms">Upper Arms</a></li>
+              <li><a href="/filter?bodypart=upper legs">Upper Legs</a></li>
+              <li><a href="/filter?bodypart=waist">Waist</a></li>
+            </ul>
           </div>
         </div>
-      </article>
-      {% endfor %}
-      {%else%}
-      <p style="text-align: center;">No Workouts found!</p>
-      {%endif%}
-    </div>
-  </section>
+        
+          
+        <form action="search" method="GET">
 
-  <section class="col s12 m3" style="padding: 5px;"> 
-    <h3 style="text-align: center;">My Routines:</h3>
-    <div class="col s12 m9 l8" style="min-width: 100%;">
-      <div class="container" name="form-container">
-        <form name="create-routine" action="/createroutine" method="POST">
-          <div class="input-field">
-            <input name="name" type="text" placeholder="Enter Routine Name">
-          </div>
-          <button class="btn waves-effect waves-light" type="submit">Create Routine</button>
+          <input type="text" class="searchTerm" name="key" placeholder="Search Workouts">
+
+          <button type="submit" class="searchButton">
+            <i class="gg-search"></i>
+          </button>
+
         </form>
+        
+
+        <div class="refreshButton">
+            <i class="gg-undo"></i>
+        </div>
       </div>
-      <ul class="collection" style="overflow-y: auto; height: 70vh;">
-        {% for routine in routines %}
-        <li class="collection-item">
-          <div class="row">
-            <div class="col s9"> <!-- Adjusted width to 9 columns -->
-              Routine:
-              <p style="display: inline;">{{ routine.name }}</p>
-            </div>
-            <div class="col s3" style="display: flex; justify-content: center; align-items: center;"> <!-- Width set to 3 columns -->
-              <div style="display: flex; flex-direction:column; justify-content:space-around;">
-              <div style="padding: 1px;" >
-              <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-form-{{ routine.id }}').submit();">Delete Routine</a>
-              <form id="delete-form-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token }}">
-              </form>
-            </div>
-            <div style="padding:1px;" >
-              <a href="/routine/{{routine.id}}"><button class="btn">View</button></a>
-              </div>
+
+      
+      {% if workouts %}
+      <div class="card-container">
+        {% for workout in workouts %}
+          <div class="card">
+            <i class="gg-add-r"></i>
+            <div class="card-title">{{ workout.name }}</div>
+            <div class="card-content">
+              <div class="card-text">Body Part: {{ workout.bodypart }}</div>
+              <div class="card-text">Equipment: {{ workout.equipment }}</div>
+              <br>
+              <div class="card-text">Instructions:</div>
+              <div class="card-text">{{ workout.instruction0 }}</div>
+              <div class="card-text">{{ workout.instruction1 }}</div>
             </div>
           </div>
         {% endfor %}
-        </ul>
+       </div>
+       {% else %}
+       <div>No workouts found!</div>
+       {% endif %}
     </div>
-  </section>
-</main>
+    
+    <div class="routines">
+      <p>My Routines</p>
+      
+      {% for routine in routines %}
+      <div class="routine-card">
+          <div class="routine-card-heading">{{ routine.name }}
+            <i class="gg-eye"></i></div>
+          <div class="routine-card-content">
+            lalala
+          </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+    
+  </div>
+
+  <script src="{{ url_for('static', filename= 'main.js') }}"></script>
+
 {% endblock %}
 
 
