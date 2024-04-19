@@ -333,6 +333,29 @@ creds-label {
   color: #F8DE22;
 }
 
+.add-routine-btn {
+  background-color: #900C3F;
+  color: white;
+  border: none;
+  font-size: 18px;
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+  margin-bottom: 20px; 
+  display: flex;
+  padding-left: 20px;
+  justify-content: center; 
+  align-items: center;
+}
+
+.add-routine-btn i {
+  margin-right: 10px;
+}
+
+.add-routine-btn:hover {
+  background-color: #F8DE22;
+}
+
 
 /* top row */
 .top-content{
