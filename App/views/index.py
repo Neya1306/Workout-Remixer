@@ -14,7 +14,7 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 @jwt_required()
 def index_page():
     workouts = get_all_workouts()
-    routines =get_user_routines(current_user.id)
+    routines = get_user_routines(current_user.id)
     return render_template('index.html', workouts=workouts, routines = routines)
 
 @index_views.route('/filter', methods=['GET'])

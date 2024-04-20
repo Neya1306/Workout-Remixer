@@ -264,7 +264,7 @@ creds-label {
 
 .card {
   width: calc(33.33% - 20px); /* Adjust width as needed */
-  max-width: 300px; /* Maximum width of each card */
+  width: 300px; /* Maximum width of each card */
   height: 350px;
   background-color: #900C3F;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -399,4 +399,30 @@ creds-label {
 @keyframes fadeEffect {
   from { opacity: 0.4; }
   to { opacity: 1; }
+}
+
+/* routines page */
+
+.user-routine{
+  height: 100%;
+  width: 100%;
+}
+
+.user-routine-box{
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.user-routine-card {
+  display: inline-block; /* Display cards inline */
+  vertical-align: top; /* Align cards to the top */
+  width: 300px; /* Maximum width of each card */
+  height: 350px;
+  background-color: #900C3F;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-right: 20px;
+  color: white;
+  text-align: left;
+  position: relative; /* Ensure relative positioning */
 }
