@@ -34,6 +34,13 @@ def search_workouts():
         workouts= Workout.query.filter(Workout.name.ilike(f'%{key}%')).all()
     return render_template('index.html', workouts=workouts, routines=routines)
 
+@index_views.route('/refresh_workouts', methods=['GET'])
+@jwt_required()
+def restore_workouts():
+    workouts = get_all_workouts()
+    routines = get_user_routines(current_user.id)
+    return render_template('index.html', workouts=workouts, routines=routines)
+
 @index_views.route('/init', methods=['GET'])
 def init():
     db.drop_all()

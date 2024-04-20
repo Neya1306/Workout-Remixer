@@ -1,38 +1,48 @@
-{% extends "layout.html" %}
-{% block title %}Signup Page{% endblock %}
-{% block page %}Signup{% endblock %}
+<!doctype html>
+<html>
+  <head>
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <!--Import Google Icon Font-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+     <!-- Icons -->
+    <link href="https://css.gg/css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}{% endblock %}</title>
 
-{{ super() }}
+  </head>
 
-{% block content %}
-<body style="background-color: #900C3F;">
-  <div class="center-content">
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Image Description" style="max-width: 20%; max-height: 20%; margin-bottom: 40px;">
-    <div style="text-align: center; font-size: 50px; font-weight: bold;">
-      New to the App?
-    </div>
-    <div style="font-size: 20px; margin-bottom: 40px;">
-      Sign Up Now!
-    </div>
-
-    <!-- Form for username and password -->
-    <form class="center-content" action="/newuser" method="POST">
-
-      <!-- Username field with creds-label -->
-      <creds-label for="username">Username</creds-label>
-      <input type="text" id="username" name="username" class="creds-text-field" placeholder="Enter your username">
-
-      <!-- Password field with creds-label -->
-      <creds-label for="password">Password</creds-label>
-      <input type="password" id="password" name="password" class="creds-text-field" placeholder="Enter your password">
-
-      <!-- Sign up button -->
-      <button type="submit" class="login-button">Sign Up</button>
-
-      <div class="sign-up-link">
-        Back to <a href="/">Login</a>
+  <body style="background-color: #900C3F; font-family: 'Bebas Neue', sans-serif;">
+    <div class="center-content">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Image Description" style="max-width: 20%; max-height: 20%; margin-bottom: 40px;">
+      <div style="text-align: center; font-size: 50px; font-weight: bold;">
+        New to the App?
       </div>
-    </form>
-  </div>
-</body>
-{% endblock %}
+      <div style="font-size: 20px; margin-bottom: 40px;">
+        Sign Up Now!
+      </div>
+
+      <!-- Form for username and password -->
+      <form class="center-content" action="/newuser" method="POST">
+
+        <!-- Username field with creds-label -->
+        <creds-label for="username">Username</creds-label>
+        <input type="text" id="username" name="username" class="creds-text-field" placeholder="Enter your username">
+
+        <!-- Password field with creds-label -->
+        <creds-label for="password">Password</creds-label>
+        <input type="password" id="password" name="password" class="creds-text-field" placeholder="Enter your password">
+
+        <!-- Sign up button -->
+        <button type="submit" class="login-button">Sign Up</button>
+
+        <div class="sign-up-link">
+          Back to <a href="/">Login</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

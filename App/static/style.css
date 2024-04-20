@@ -1,7 +1,6 @@
 html {
   height: 100%;
   width: 100%;
-  background-color: white;
 }
 /* LOGIN AND SIGNUP CSS STARTS HERE */
 
@@ -149,7 +148,7 @@ creds-label {
   width: 100%;
   position: relative;
   display: flex;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .search form {
@@ -227,7 +226,7 @@ creds-label {
   display: block;
 }
 
-.dropbtn {
+.dropdown-box {
   background-color: #900C3F;
   color: white;
   padding: 5px 10px;

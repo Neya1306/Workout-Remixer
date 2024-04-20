@@ -7,7 +7,7 @@
 {% block content %}
   <!-- home page welcome message -->
   <div style="font-size: 50px; margin-bottom: 15px; margin-top: 15px;">Welcome {{current_user.username}}!</div>
-
+  <!-- div for images at the start of the page -->
   <div class="top-content">
     
     <div class="slideshow-container">
@@ -39,15 +39,16 @@
     <div class="extra-column"><img src="{{ url_for('static', filename='flyer.png') }}" alt="Flyer"></div>
   
   </div>
-
+  <!-- div for workouts and routine section -->
   <div class="content">
-    
+    <!-- div for workouts section -->
     <div class="workouts">
       <p>Browse Workouts</p>
-      
+      <!-- div for workouts search bar -->
       <div class="search">
+
         <div class="dropdown">
-          <div class="dropbtn">Filter by Body Part</div>
+          <div class="dropdown-box">Filter by Body Part</div>
           <div class="dropdown-content">
             <ul>
               <li><a href="/filter?bodypart=back">Back</a></li>
@@ -63,8 +64,7 @@
           </div>
         </div>
         
-          
-        <form action="search" method="GET">
+        <form action="/search" method="GET">
 
           <input type="text" class="searchTerm" name="key" placeholder="Search Workouts">
 
@@ -73,13 +73,13 @@
           </button>
 
         </form>
-        
-
+      
         <div class="refreshButton">
-            <i class="gg-undo"></i>
+          <form action="/refresh_workouts" method="GET">
+            <button type="submit" style="background-color: transparent; border: none;"><i class="gg-undo"></i></button>
+          </form>
         </div>
       </div>
-
       
       {% if workouts %}
       <div class="card-container">
@@ -110,6 +110,7 @@
         </i>Create New Routine
       </button>
       
+      {% if routines %}
       {% for routine in routines %}
       <div class="routine-card">
           <div class="routine-card-heading">{{ routine.name }}
@@ -119,7 +120,9 @@
           </div>
       </div>
       {% endfor %}
-      
+      {% else %}
+       <h2 style="text-align: center;">No routines found!</h2>
+      {% endif %}
     </div>
     
   </div>
@@ -127,5 +130,7 @@
   <script src="{{ url_for('static', filename= 'main.js') }}"></script>
 
 {% endblock %}
+
+
 
 
