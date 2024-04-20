@@ -1,43 +1,62 @@
 {% extends "layout.html" %}
-{% block title %}View Routine{%endblock %}
+{% block title %}View Routine{% endblock %}
 {% block page %}View Routine{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-<body>
-  <div style="font-size: 50px; margin-bottom: 15px; margin-top: 15px;">{{current_user.username}}'s Routines</div>
+<div class="content">
+  <div class="row">
+    <div class="col s12 m8">
+      <div class="workouts">
+        <h2 style="text-align: center;">{{routine.name}}</h2>
+        <h3>Workouts in {{routine.name}}:</h3> 
+        {% if workouts %}
+        {% for workout in workouts %}
+        <div class="card-container">
+          <div class="card">
+            <div class="card-title">Workout: {{ workout.name }}</div>
+            <div class="card-text">Body part: {{ workout.bodypart }}</div>
+            <div class="card-text">Equipment: {{ workout.equipment }}</div>
+            <br>
+            <div class="card-text">Instruction1: {{ workout.instruction0 }}</div>
+            <div class="card-text">Instruction2: {{ workout.instruction1 }}</div>
+            <div class="card-action">
+              <form action="/deleteworkout/{{routine.id}}/{{workout.id}}" method="POST">
+                <button type="submit" class="btn">Delete from Routine</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p style="text-align: center;">No Workouts found!</p>
+        {% endif %}
+      </div>
+    </div>
 
-  <div class="user-routine">
-    {% if routine %}
-    {% for routine in routines %}
-    <div class="user-routine-box">
-      <h2>{{routine.name}}</h2>
-      {% if workouts %}
-      {% for workout in workouts %}
-      <div class="user-routine-card">
-        <div class="card-title">{{ workout.name }}</div>
-        <div class="card-content">
-          <div class="card-text">Body Part: {{ workout.bodypart }}</div>
-          <div class="card-text">Equipment: {{ workout.equipment }}</div>
-          <br>
-          <br>
-          <div class="card-text">Instructions:</div>
-          <div class="card-text">{{ workout.instruction0 }}</div>
-          <div class="card-text">{{ workout.instruction1 }}</div>
+    <div class="col s12 m4">
+      <div class="routines">
+        <h3>Edit {{routine.name}}</h3>
+        <div class="collection" style="background-color:gainsboro;padding: 5px;">
+          <div>
+            Rename Routine:
+            <form style="display: flex;flex-direction:row; " action="/rename_routine/{{routine.id}}" method="POST">
+              <input type="text" name="name" id="name" placeholder="Enter New Name" style="background-color:white;border-radius:15px;margin-right:5px;">
+              <input type="submit" class="btn" value="Rename">
+            </form>
+          </div>
+          <div>
+            Delete Routine:
+            <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-form-{{ routine.id }}').submit();">Delete Routine</a>
+            <form id="delete-form-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" name="_token" value="{{ csrf_token }}">
+            </form>
+          </div>
         </div>
       </div>
-      {% endfor %}
-      {%else%}
-      <div>No workouts in this!</div>
-      {%endif%}
     </div>
-    {% endfor %}
-    {%else%}
-    <h2>You have no routines</h2>
-    {%endif%}
-
   </div>
-  
-</body>
+</div>
 {% endblock %}

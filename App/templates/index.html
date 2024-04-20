@@ -90,7 +90,7 @@
             <dialog data-modal-workout class="modal">
               <h2>Add Workout</h2>
               <div class="pop-up">
-                <form action="/addroutine" method="POST">
+                <form action="/addRoutine" method="POST">
                   <div>Select Routine</div>
                   <select name="routine_id">
                     {% for routine in routines %}
@@ -141,9 +141,17 @@
       {% for routine in routines %}
       <div class="routine-card">
           <div class="routine-card-heading">{{ routine.name }}
-            <i class="gg-eye"></i></div>
+           
+            <a href="/routine/{{ routine.id }}"><i class="gg-eye" style="margin-left: 5px;"></i></a>
+            <a href="/delete_routine/{{ routine.id }}" class="btn" onclick="event.preventDefault(); document.getElementById('delete-routine-{{ routine.id }}').submit();"><i class="gg-trash" style="color: white;"></i></a>
+            <form id="delete-routine-{{ routine.id }}" action="/delete_routine/{{ routine.id }}" method="POST" style="display: none;">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" name="_token" value="{{ csrf_token }}">
+            </form>
+            
+          </div>
           <div class="routine-card-content">
-            <ul>
+            <!-- <ul>
               {% if workouts %}
               {% for workout in workouts %} 
               <li>{{ workout.name }}</li>
@@ -151,15 +159,16 @@
               {else}
               <div>no workouts</div>
               {% endif %}
-            </ul>
-            
+            </ul> -->
           </div>
       </div>
       {% endfor %}
       {% else %}
-       <h2 style="text-align: center;">No routines found!</h2>
+      <h2 style="text-align: center;">No routines found!</h2>
       {% endif %}
     </div>
+
+    
     
   </div>
 
