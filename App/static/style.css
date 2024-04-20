@@ -426,3 +426,32 @@ creds-label {
   text-align: left;
   position: relative; /* Ensure relative positioning */
 }
+
+/* pop-up stuff */
+.modal {
+  height: 200px;
+  width: 300px;
+  background-color: #900C3F;
+}
+
+.pop-up{
+  margin-bottom: 60px;
+}
+
+.pop-up input[type="text"] {
+  width: 220px;
+  height: 40px;
+}
+
+.pop-up input[type="submit"]{
+  width: 60px;
+  height: 40px;
+  color: white;
+  background-color: black;
+  border: none;
+  box-shadow: none;
+}
+
+.pop-up input[type="submit"]:hover{
+  background-color: #F8DE22;
+}

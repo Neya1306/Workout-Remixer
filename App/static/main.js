@@ -30,16 +30,42 @@ function showSlides() {
   setTimeout(showSlides, 5000); // Change image every 5 seconds
 }
 
-function adjustContainerHeight() {
-    var container = document.getElementById('result');
-    container.style.height = container.scrollHeight + 'px';
-}
+// Modal functionality
+// Modal functionality for workouts
+const openModalWorkout = document.querySelectorAll("[data-open-modal-workout]");
+const modalWorkout = document.querySelectorAll("[data-modal-workout]");
+const closeModalWorkout = document.querySelectorAll("[data-close-modal-workout]");
+
+openModalWorkout.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    modalWorkout[index].showModal();
+  });
+});
+
+closeModalWorkout.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    modalWorkout[index].close();
+  });
+});
+
+// Modal functionality for routines
+const openModalRoutine = document.querySelector("[data-open-modal-routine]");
+const modalRoutine = document.querySelector("[data-modal-routine]");
+const closeModalRoutine = document.querySelector("[data-close-modal-routine]");
+
+openModalRoutine.addEventListener("click", () => {
+  modalRoutine.showModal();
+});
+
+closeModalRoutine.addEventListener("click", () => {
+  modalRoutine.close();
+});
+
 
 async function main(){
     const users = await getUserData();
     loadTable(users);
     showSlides(); // Call the showSlides function
-    adjustContainerHeight();
 }
 
 main();

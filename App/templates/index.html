@@ -85,7 +85,25 @@
       <div class="card-container">
         {% for workout in workouts %}
           <div class="card">
-            <i class="gg-add-r"></i>
+            
+            <button data-open-modal-workout><i class="gg-add-r"></i></button>
+            <dialog data-modal-workout class="modal">
+              <h2>Add Workout</h2>
+              <div class="pop-up">
+                <form action="/addroutine" method="POST">
+                  <div>Select Routine</div>
+                  <select name="routine_id">
+                    {% for routine in routines %}
+                    <option value="{{ routine.id }}">{{ routine.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <input type="hidden" name="workout_id" value="{{ workout.id }}">
+                  <button type="submit" class="btn">Add To Routine</button>
+                </form>
+              </div>
+              <button data-close-modal-workout>Cancel</button>
+            </dialog>
+
             <div class="card-title">{{ workout.name }}</div>
             <div class="card-content">
               <div class="card-text">Body Part: {{ workout.bodypart }}</div>
@@ -105,18 +123,36 @@
     
     <div class="routines">
       <p>My Routines</p>
-
-      <button class="add-routine-btn">       
-        </i>Create New Routine
-      </button>
+      <!-- button and pop-up -->
+      <button data-open-modal-routine class="add-routine-btn">Create New Routine</button>
+      <dialog data-modal-routine class="modal">
+        <h2>Create New Routine</h2>
+        <div class="pop-up">
+          <form action="/createroutine" method="POST">
+            <input name="name" type="text" placeholder="Routine Name"/>
+            <input type="submit" value="Create"/>
+          </form>
+        </div>
+        <button data-close-modal-routine>Cancel</button>
+      </dialog>
       
+      <!-- routine card -->
       {% if routines %}
       {% for routine in routines %}
       <div class="routine-card">
           <div class="routine-card-heading">{{ routine.name }}
             <i class="gg-eye"></i></div>
           <div class="routine-card-content">
-            lalala
+            <ul>
+              {% if workouts %}
+              {% for workout in workouts %} 
+              <li>{{ workout.name }}</li>
+              {% endfor %}
+              {else}
+              <div>no workouts</div>
+              {% endif %}
+            </ul>
+            
           </div>
       </div>
       {% endfor %}
